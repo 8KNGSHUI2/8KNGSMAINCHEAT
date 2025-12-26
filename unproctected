@@ -1,0 +1,446 @@
+--// SERVICES
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local LocalPlayer = Players.LocalPlayer
+
+--// SETTINGS
+local NAME = "8KNGS"
+local VALID_KEY = "8KNGS"
+local KEY_FULL_IMAGE = "rbxassetid://137857492371537"
+
+--// SCRIPT BUTTON DATA
+local Scripts = {
+    ["Main Menu"] = {
+        {label="INFINITE YIELD (8KNGS)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()'},
+        {label="ESP (8KNGS)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/TAMBAY-RP-CHEAT-BY-8KNGS/refs/heads/main/ESP%20BY%208KNGS"))()'},
+        {label="BIG HEAD (8KNGS)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/head"))()'},
+        {label="TP SELECT (8KNGS)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/TELEPORT"))()'},
+        {label="TRACK ALL (8KNGS)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/8KNGSMAINCHEAT/refs/heads/main/8kngs%20track%20all"))()'},
+        {label="BRING ALL (8KNGS)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/8KNGSMAINCHEAT/refs/heads/main/BringAll))()'},
+        {label="BYPASS COMSERVICE 3 SEC(8KNGS)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/BYPASS%20COMSERV"))()'},
+        {label="AIMBOT (8KNGS)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/TAMBAY-RP-CHEAT-BY-8KNGS/6b39afff3836eda3e317bba6d9cd2ba02bd6488c/AIMBOT%20BY%208KBGS"))()'}
+    },
+    ["Roleplay Menu"] = {
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''}
+    },
+    ["Roleplay Menu 2"] = {
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''}
+    },
+    ["Cash Menu"] = {
+        {label="TBC CASH",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/CASH%20TBC"))()'},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''}
+    },
+    ["TBC MENU"] = {
+        {label="CASH SPAWNER (8KNGS)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/CASH%20TBC"))()'},
+        {label="AUTO OXY (8KNGS)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/AUTO%20OXY"))()'},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''},
+        {label="Soon",code=''}
+    },
+    ["TBC Teleport Menu"] = {
+        {label="24/7 STORE (TBC) ",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/store"))()'},
+        {label="Limeys (TBC)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/lineys"))()'},
+        {label="Del Perro",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/as"))()'},
+        {label="Car Dealer (TBC)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/card"))()'},
+        {label="Pharmacy (TBC)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/pharmacy"))()'},
+        {label="Farm (TBC)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/farm"))()'},
+        {label="Est (Base)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/est"))()'},
+        {label="ASP (BASE)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/asp"))()'},
+        {label="Alvaesco (Base)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/alvaesco"))()'},
+        {label="CDF(BASE)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/CDF"))()'},
+        {label="Dela Cruz (Base)",code='loadstring(game:HttpGet("https://raw.githubusercontent.com/8KNGSHUI2/CHEATS/refs/heads/main/DELA%20CRIZ"))()'}
+    },
+    ["Settings"] = {},
+    ["Lua Executor"] = {}
+}
+
+-- Fill empty slots
+for _,tab in pairs(Scripts) do
+    for i=#tab+1,20 do
+        table.insert(tab,{label="Empty "..i,code=""})
+    end
+end
+
+--// CLEAN OLD GUI
+for _,v in pairs(game.CoreGui:GetChildren()) do
+    if v.Name:find(NAME) or v.Name == "8KNGSGUI" then 
+        v:Destroy() 
+    end
+end
+if LocalPlayer.PlayerGui then
+    for _,v in pairs(LocalPlayer.PlayerGui:GetChildren()) do
+        if v.Name:find(NAME) or v.Name == "8KNGSGUI" then 
+            v:Destroy() 
+        end
+    end
+end
+
+wait(0.1)
+
+----------------------------------------------------------------
+--// HUB CREATION FUNCTION
+----------------------------------------------------------------
+local function createHub()
+    local hubGui = Instance.new("ScreenGui")
+    hubGui.Name = "8KNGSGUI"
+    hubGui.IgnoreGuiInset = true
+    hubGui.ResetOnSpawn = false
+    hubGui.Parent = game.CoreGui
+
+    local main = Instance.new("Frame", hubGui)
+    main.Size = UDim2.new(0,900,0,540)
+    main.Position = UDim2.new(0.5,-450,0.5,-270)
+    main.BackgroundColor3 = Color3.fromRGB(10,10,10)
+    main.Active = true
+    main.Draggable = true
+    Instance.new("UICorner",main).CornerRadius = UDim.new(0,18)
+
+    -- Top Bar
+    local top = Instance.new("Frame",main)
+    top.Size = UDim2.new(1,0,0,50)
+    top.BackgroundColor3 = Color3.fromRGB(0,0,0)
+    Instance.new("UICorner",top).CornerRadius = UDim.new(0,18)
+
+    local title = Instance.new("TextLabel",top)
+    title.Size = UDim2.new(0,300,1,0)
+    title.Position = UDim2.new(0,10,0,0)
+    title.BackgroundTransparency = 1
+    title.Text = "8KNGS MENU VERSION 1"
+    title.Font = Enum.Font.GothamBold
+    title.TextSize = 16
+    title.TextColor3 = Color3.new(1,1,1)
+    title.TextXAlignment = Enum.TextXAlignment.Left
+
+    local subtitle = Instance.new("TextLabel",top)
+    subtitle.Size = UDim2.new(0,200,1,0)
+    subtitle.Position = UDim2.new(0,320,0,0)
+    subtitle.BackgroundTransparency = 1
+    subtitle.Text = "MAIN MENU"
+    subtitle.Font = Enum.Font.GothamBold
+    subtitle.TextSize = 18
+    subtitle.TextColor3 = Color3.new(1,1,1)
+    subtitle.TextXAlignment = Enum.TextXAlignment.Left
+
+    -- Profile Panel
+    local profile = Instance.new("Frame",main)
+    profile.Size = UDim2.new(0,200,1,-70)
+    profile.Position = UDim2.new(0,0,0,60)
+    profile.BackgroundColor3 = Color3.fromRGB(0,0,0)
+
+    local avatar = Instance.new("ImageLabel",profile)
+    avatar.Size = UDim2.new(0,100,0,100)
+    avatar.Position = UDim2.new(0.5,-50,0,20)
+    avatar.BackgroundTransparency = 1
+    avatar.Image = "https://www.roblox.com/headshot-thumbnail/image?userId="..LocalPlayer.UserId.."&width=420&height=420&format=png"
+    Instance.new("UICorner",avatar).CornerRadius = UDim.new(1,0)
+
+    local dispName = Instance.new("TextLabel",profile)
+    dispName.Size = UDim2.new(1,0,0,30)
+    dispName.Position = UDim2.new(0,0,0,130)
+    dispName.BackgroundTransparency = 1
+    dispName.Text = LocalPlayer.DisplayName
+    dispName.TextColor3 = Color3.new(1,1,1)
+    dispName.TextSize = 18
+    dispName.Font = Enum.Font.GothamBold
+
+    local username = Instance.new("TextLabel",profile)
+    username.Size = UDim2.new(1,0,0,25)
+    username.Position = UDim2.new(0,0,0,160)
+    username.BackgroundTransparency = 1
+    username.Text = "@"..LocalPlayer.Name
+    username.TextColor3 = Color3.fromRGB(150,150,150)
+    username.TextSize = 14
+    username.Font = Enum.Font.Gotham
+
+    local divider = Instance.new("Frame",profile)
+    divider.Size = UDim2.new(1,-20,0,1)
+    divider.Position = UDim2.new(0,10,0,200)
+    divider.BackgroundColor3 = Color3.fromRGB(50,50,50)
+    divider.BorderSizePixel = 0
+
+    local socials = {
+        "Discord: gg/8KNGS",
+        "Tiktok: N/A",
+        "Youtube: N/A",
+        "ENJOY USING OUR SCRIPT"
+    }
+    for i,text in ipairs(socials) do
+        local lbl = Instance.new("TextLabel",profile)
+        lbl.Size = UDim2.new(1,-20,0,25)
+        lbl.Position = UDim2.new(0,10,0,210+(i-1)*30)
+        lbl.BackgroundTransparency = 1
+        lbl.Text = text
+        lbl.TextColor3 = Color3.fromRGB(200,200,200)
+        lbl.TextSize = 12
+        lbl.Font = Enum.Font.Gotham
+        lbl.TextXAlignment = Enum.TextXAlignment.Left
+    end
+
+    -- Tab Bar (Horizontal Scroll) - BLACK with WHITE text
+    local tabBar = Instance.new("ScrollingFrame",main)
+    tabBar.Size = UDim2.new(1,-220,0,50)
+    tabBar.Position = UDim2.new(0,210,0,60)
+    tabBar.BackgroundColor3 = Color3.fromRGB(0,0,0)
+    tabBar.ScrollBarThickness = 6
+    tabBar.ScrollingDirection = Enum.ScrollingDirection.X
+    tabBar.CanvasSize = UDim2.new(0,0,0,0)
+    tabBar.BorderSizePixel = 0
+
+    local layout = Instance.new("UIListLayout",tabBar)
+    layout.FillDirection = Enum.FillDirection.Horizontal
+    layout.Padding = UDim.new(0,10)
+    layout.SortOrder = Enum.SortOrder.LayoutOrder
+
+    layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        tabBar.CanvasSize = UDim2.new(0, layout.AbsoluteContentSize.X + 20, 0, 0)
+    end)
+
+    -- Content Area (VERTICAL scroll with landscape button rows)
+    local contentArea = Instance.new("ScrollingFrame",main)
+    contentArea.Size = UDim2.new(1,-220,1,-125)
+    contentArea.Position = UDim2.new(0,210,0,120)
+    contentArea.BackgroundColor3 = Color3.fromRGB(10,10,10)
+    contentArea.ScrollBarThickness = 8
+    contentArea.ScrollingDirection = Enum.ScrollingDirection.Y
+    contentArea.CanvasSize = UDim2.new(0,0,0,0)
+    contentArea.BorderSizePixel = 0
+
+    local TabButtons, TabContents = {}, {}
+    local order = {"Main Menu","Roleplay Menu","Roleplay Menu 2","Cash Menu","TBC MENU","TBC Teleport Menu","Settings","Lua Executor"}
+
+    for idx,tabName in ipairs(order) do
+        local buttons = Scripts[tabName]
+        
+        -- Tab button - BLACK background, WHITE text
+        local btn = Instance.new("TextButton",tabBar)
+        btn.Size = UDim2.new(0,140,0,40)
+        btn.Text = tabName:upper()
+        btn.Font = Enum.Font.GothamBold
+        btn.TextSize = 12
+        btn.TextColor3 = Color3.new(1,1,1)
+        btn.BackgroundColor3 = Color3.fromRGB(0,0,0)
+        btn.BorderSizePixel = 0
+        btn.LayoutOrder = idx
+        Instance.new("UICorner",btn).CornerRadius = UDim.new(0,8)
+        TabButtons[tabName] = btn
+
+        -- Tab content with vertical buttons
+        local page = Instance.new("Frame",contentArea)
+        page.Size = UDim2.new(1,-10,0,0)
+        page.Position = UDim2.new(0,5,0,0)
+        page.Visible = false
+        page.BackgroundTransparency = 1
+        TabContents[tabName] = page
+
+        -- Vertical list layout for buttons
+        local listLayout = Instance.new("UIListLayout",page)
+        listLayout.Padding = UDim.new(0,10)
+        listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        listLayout.FillDirection = Enum.FillDirection.Vertical
+        listLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+        
+        -- Auto-adjust page height based on content
+        listLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+            page.Size = UDim2.new(1,-10,0,listLayout.AbsoluteContentSize.Y)
+            -- Update canvas size for vertical scrolling
+            local totalHeight = 0
+            for _,content in pairs(TabContents) do
+                if content.Visible then
+                    totalHeight = listLayout.AbsoluteContentSize.Y
+                end
+            end
+            contentArea.CanvasSize = UDim2.new(0,0,0,totalHeight + 20)
+        end)
+
+        for i=1,8 do
+            local data = buttons[i]
+            local sbtn = Instance.new("TextButton",page)
+            sbtn.Size = UDim2.new(1,-20,0,50)
+            sbtn.Text = data.label
+            sbtn.Font = Enum.Font.GothamBold
+            sbtn.TextSize = 13
+            sbtn.TextColor3 = Color3.new(1,1,1)
+            sbtn.BackgroundColor3 = Color3.fromRGB(30,30,30)
+            sbtn.LayoutOrder = i
+            sbtn.BorderSizePixel = 0
+            Instance.new("UICorner",sbtn).CornerRadius = UDim.new(0,8)
+            
+            sbtn.MouseEnter:Connect(function()
+                sbtn.BackgroundColor3 = Color3.fromRGB(50,50,50)
+            end)
+            sbtn.MouseLeave:Connect(function()
+                sbtn.BackgroundColor3 = Color3.fromRGB(30,30,30)
+            end)
+            
+            sbtn.MouseButton1Click:Connect(function()
+                if data.code~="" then
+                    loadstring(data.code)()
+                end
+            end)
+        end
+    end
+
+    -- Tab Switching
+    for name,btn in pairs(TabButtons) do
+        btn.MouseButton1Click:Connect(function()
+            -- UPDATE SUBTITLE TEXT
+            subtitle.Text = name:upper()
+            
+            for n,c in pairs(TabContents) do 
+                c.Visible = (n==name)
+                if c.Visible then
+                    local listLayout = c:FindFirstChildOfClass("UIListLayout")
+                    if listLayout then
+                        contentArea.CanvasSize = UDim2.new(0,0,0,listLayout.AbsoluteContentSize.Y + 20)
+                    end
+                end
+            end
+            for _,b in pairs(TabButtons) do
+                b.BackgroundColor3 = Color3.fromRGB(0,0,0)
+                b.TextColor3 = Color3.new(1,1,1)
+            end
+            btn.BackgroundColor3 = Color3.fromRGB(40,40,40)
+        end)
+    end
+
+    for _,content in pairs(TabContents) do
+        content.Visible = false
+    end
+
+    return main, TabButtons
+end
+
+----------------------------------------------------------------
+--// KEY GUI
+----------------------------------------------------------------
+local keyGui = Instance.new("ScreenGui")
+keyGui.Name = NAME.."KeySystem"
+keyGui.IgnoreGuiInset = true
+keyGui.ResetOnSpawn = false
+keyGui.Parent = game.CoreGui
+
+local panel = Instance.new("Frame", keyGui)
+panel.Size = UDim2.new(0,320,0,130)
+panel.Position = UDim2.new(0.5,-160,0.5,-65)
+panel.BackgroundTransparency = 1
+panel.Active = true
+panel.Draggable = true
+Instance.new("UICorner",panel).CornerRadius = UDim.new(0,20)
+
+local bg = Instance.new("ImageLabel",panel)
+bg.Size = UDim2.new(1,0,1,0)
+bg.BackgroundTransparency = 1
+bg.Image = KEY_FULL_IMAGE
+bg.ScaleType = Enum.ScaleType.Fit
+Instance.new("UICorner",bg).CornerRadius = UDim.new(0,20)
+
+local box = Instance.new("TextBox", panel)
+box.Size = UDim2.new(0.7,0,0,35)
+box.Position = UDim2.new(0.5,0,0.35,0)
+box.AnchorPoint = Vector2.new(0.5,0)
+box.BackgroundColor3 = Color3.fromRGB(0,0,0)
+box.BackgroundTransparency = 0.6
+box.TextColor3 = Color3.new(1,1,1)
+box.PlaceholderText = "KEY HERE"
+box.Text = ""
+box.Font = Enum.Font.GothamBold
+box.TextSize = 16
+box.ClearTextOnFocus = false
+Instance.new("UICorner",box).CornerRadius = UDim.new(0,8)
+
+local submit = Instance.new("TextButton", panel)
+submit.Size = UDim2.new(0.3,0,0,35)
+submit.Position = UDim2.new(0.35,0,0.65,0)
+submit.BackgroundColor3 = Color3.fromRGB(0,0,0)
+submit.BackgroundTransparency = 1
+submit.Text = "SUBMIT"
+submit.Font = Enum.Font.GothamBold
+submit.TextSize = 16
+submit.TextColor3 = Color3.new(1,1,1)
+Instance.new("UICorner",submit).CornerRadius = UDim.new(0,8)
+
+submit.MouseEnter:Connect(function()
+    submit.BackgroundTransparency = 1
+end)
+submit.MouseLeave:Connect(function()
+    submit.BackgroundTransparency = 1
+end)
+
+----------------------------------------------------------------
+--// SUBMIT BUTTON HANDLER
+----------------------------------------------------------------
+submit.MouseButton1Click:Connect(function()
+    if box.Text:upper() ~= VALID_KEY then
+        box.Text = ""
+        box.PlaceholderText = "INVALID KEY"
+        task.wait(2)
+        box.PlaceholderText = "KEY HERE"
+        return
+    end
+
+    keyGui:Destroy()
+
+    -- LOADING SCREEN
+    local loadGui = Instance.new("ScreenGui")
+    loadGui.Name = NAME.."_LOADING"
+    loadGui.IgnoreGuiInset = true
+    loadGui.ResetOnSpawn = false
+    loadGui.Parent = game.CoreGui
+
+    local loadBg = Instance.new("ImageLabel",loadGui)
+    loadBg.Size = UDim2.new(1,0,1,0)
+    loadBg.BackgroundTransparency = 1
+    loadBg.Image = KEY_FULL_IMAGE
+    loadBg.ScaleType = Enum.ScaleType.Crop
+
+    local loadOverlay = Instance.new("Frame",loadBg)
+    loadOverlay.Size = UDim2.new(1,0,1,0)
+    loadOverlay.BackgroundColor3 = Color3.new(0,0,0)
+    loadOverlay.BackgroundTransparency = 0.4
+
+    local barBG = Instance.new("Frame",loadOverlay)
+    barBG.AnchorPoint = Vector2.new(0.5,1)
+    barBG.Position = UDim2.new(0.5,0,0.95,0)
+    barBG.Size = UDim2.new(0.8,0,0,20)
+    barBG.BackgroundColor3 = Color3.fromRGB(40,40,40)
+    Instance.new("UICorner",barBG).CornerRadius = UDim.new(0,10)
+
+    local bar = Instance.new("Frame",barBG)
+    bar.Size = UDim2.new(0,0,1,0)
+    bar.BackgroundColor3 = Color3.fromRGB(255,255,255)
+    Instance.new("UICorner",bar).CornerRadius = UDim.new(0,10)
+
+    TweenService:Create(bar,TweenInfo.new(10,Enum.EasingStyle.Linear),{Size=UDim2.new(1,0,1,0)}):Play()
+
+    task.wait(10)
+    loadGui:Destroy()
+    
+    local mainFrame, tabButtons = createHub()
+    
+    task.wait(15)
+    
+    tabButtons["Main Menu"].MouseButton1Click:Fire()
+end)
