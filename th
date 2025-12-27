@@ -1,0 +1,15 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- Target position
+local targetPosition = Vector3.new(
+    1023.5131225585938,
+    33.67271041870117,
+    -2325.211669921875
+)
+
+-- Teleport
+local character = player.Character or player.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart")
+
+hrp.CFrame = CFrame.new(targetPosition)
